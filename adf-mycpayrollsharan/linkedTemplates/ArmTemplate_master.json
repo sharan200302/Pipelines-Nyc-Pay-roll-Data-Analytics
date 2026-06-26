@@ -1,0 +1,132 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-mycpayrollsharan"
+		},
+		"ls_adls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls'"
+		},
+		"ls_sqlsb_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_sqlsb'"
+		},
+		"ls_synapse_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_synapse'"
+		},
+		"ls_adls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsnycpayrollsharanv.dfs.core.windows.net/"
+		},
+		"ls_sqlsb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqlserver-sharan.database.windows.net"
+		},
+		"ls_sqlsb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "db_nycpayroll"
+		},
+		"ls_sqlsb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "azureadmin"
+		},
+		"ls_synapse_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "synapse-nycpayrollsharan.sql.azuresynapse.net"
+		},
+		"ls_synapse_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqlpool1"
+		},
+		"ls_synapse_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "azureadmin"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adf-mycpayrollsharan_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ls_adls_accountKey": {
+						"value": "[parameters('ls_adls_accountKey')]"
+					},
+					"ls_sqlsb_password": {
+						"value": "[parameters('ls_sqlsb_password')]"
+					},
+					"ls_synapse_password": {
+						"value": "[parameters('ls_synapse_password')]"
+					},
+					"ls_adls_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_properties_typeProperties_url')]"
+					},
+					"ls_sqlsb_properties_typeProperties_server": {
+						"value": "[parameters('ls_sqlsb_properties_typeProperties_server')]"
+					},
+					"ls_sqlsb_properties_typeProperties_database": {
+						"value": "[parameters('ls_sqlsb_properties_typeProperties_database')]"
+					},
+					"ls_sqlsb_properties_typeProperties_userName": {
+						"value": "[parameters('ls_sqlsb_properties_typeProperties_userName')]"
+					},
+					"ls_synapse_properties_typeProperties_server": {
+						"value": "[parameters('ls_synapse_properties_typeProperties_server')]"
+					},
+					"ls_synapse_properties_typeProperties_database": {
+						"value": "[parameters('ls_synapse_properties_typeProperties_database')]"
+					},
+					"ls_synapse_properties_typeProperties_userName": {
+						"value": "[parameters('ls_synapse_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "adf-mycpayrollsharan_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-mycpayrollsharan_ArmTemplate_0')]"
+			]
+		}
+	]
+}

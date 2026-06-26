@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-mycpayrollsharan"
+		},
+		"ls_adls_accountKey": {
+			"value": ""
+		},
+		"ls_sqlsb_password": {
+			"value": ""
+		},
+		"ls_synapse_password": {
+			"value": ""
+		},
+		"ls_adls_properties_typeProperties_url": {
+			"value": "https://adlsnycpayrollsharanv.dfs.core.windows.net/"
+		},
+		"ls_sqlsb_properties_typeProperties_server": {
+			"value": "sqlserver-sharan.database.windows.net"
+		},
+		"ls_sqlsb_properties_typeProperties_database": {
+			"value": "db_nycpayroll"
+		},
+		"ls_sqlsb_properties_typeProperties_userName": {
+			"value": "azureadmin"
+		},
+		"ls_synapse_properties_typeProperties_server": {
+			"value": "synapse-nycpayrollsharan.sql.azuresynapse.net"
+		},
+		"ls_synapse_properties_typeProperties_database": {
+			"value": "sqlpool1"
+		},
+		"ls_synapse_properties_typeProperties_userName": {
+			"value": "azureadmin"
+		}
+	}
+}
