@@ -1,0 +1,15 @@
+{
+	"name": "adf-mycpayrollsharan",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d49bb910-17dc-4c2e-8c51-4bcab919be12",
+		"tenantId": "84f1e4ea-8554-43e1-8709-f0b8589ea118"
+	}
+}

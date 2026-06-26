@@ -1,0 +1,95 @@
+{
+	"name": "pipeline_Master",
+	"properties": {
+		"activities": [
+			{
+				"name": "PL_transfer_2021_nycpayroll_from_sql_synapse",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_transfer_2021_nycpayroll_from_sql_synapse",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "PL_transfer_agency_MD_to_synapse",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "PL_transfer_2021_nycpayroll_from_sql_synapse",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_transfer_agency_MD_to_synapse",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "PL_transfer_emp_MD_to_synapse",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "PL_transfer_agency_MD_to_synapse",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_transfer_emp_MD_to_synapse",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "PL_transfer_title_MD_to_synapse",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "PL_transfer_emp_MD_to_synapse",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_transfer_title_MD_to_synapse",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-06-26T16:43:54Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
